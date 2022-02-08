@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link" href="2019_c">2019 지역별 그래프</a></li>
+                <li class="nav-item"><a class="nav-link" href="2020_c">2020 지역별 그래프</a></li>
+                <li class="nav-item"><a class="nav-link" href="2019_m">2019 월별 그래프</a></li>
+                <li class="nav-item"><a class="nav-link" href="2020_m">2020 월별 그래프</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" src="{%static 'pybo/2020월별.png' %}" />
+            </div>
+            <div class="col-md-6">
+                <h3 class="display-5 fw-bolder">📊 2020년 월별 축제 현황</h3>
+                <div class="small mb-1">2020년에 진행된 축제를 월별 그래프로 표현</div>
+                <div class="small mb-1">✔10월에 축제가 가장 많이 진행되었다.</div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</section>
+{% endblock %}

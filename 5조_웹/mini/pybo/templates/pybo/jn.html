@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div id="map" style="width:100%;height:700px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=45e18398b5d634d330bcfb757b4f0d24"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        mapOption = {
+            center: new kakao.maps.LatLng(35.111012, 127.079123), // 지도의 중심좌표
+            level: 10 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = [
+        { content: '<div>가로수사랑음악회</div>', latlng: new kakao.maps.LatLng(35.316174, 126.984006) },
+        { content: '<div>창평전통음식문화축제</div>', latlng: new kakao.maps.LatLng(35.235251, 127.017861) },
+        { content: '<div>추월산벚꽃축제</div>', latlng: new kakao.maps.LatLng(35.364493, 126.987205) },
+        { content: '<div>담양산타축제</div>', latlng: new kakao.maps.LatLng(35.321211, 126.988175) },
+        { content: '<div>담양대나무축제</div>', latlng: new kakao.maps.LatLng(35.321211, 126.988175) },
+        { content: '<div>보성차밭 빛축제</div>', latlng: new kakao.maps.LatLng(34.719877, 127.081709) },
+        { content: '<div>보성차밭 빛축제</div>', latlng: new kakao.maps.LatLng(34.719877, 127.081709) },
+        { content: '<div>제24회 무안연꽃추제</div>', latlng: new kakao.maps.LatLng(34.860088, 126.529896) },
+        { content: '<div>제8회 무안황토갯벌축제</div>', latlng: new kakao.maps.LatLng(35.103324, 126.331941) },
+        { content: '<div>화순고인돌문화축제</div>', latlng: new kakao.maps.LatLng(34.985576, 126.918716) },
+        { content: '<div>화순 국화향연</div>', latlng: new kakao.maps.LatLng(35.058314, 126.985162) },
+        { content: '<div>화순적벽 문화축제</div>', latlng: new kakao.maps.LatLng(35.111012, 127.079123) },
+        { content: '<div>불갑산상사화축제</div>', latlng: new kakao.maps.LatLng(35.199675, 126.550046) },
+        { content: '<div>땅끝매화축제</div>', latlng: new kakao.maps.LatLng(34.624524, 126.463392) },
+        { content: '<div>달마고도 걷기축제</div>', latlng: new kakao.maps.LatLng(34.382232, 126.577959) },
+        { content: '<div>흑석산 철쭉제</div>', latlng: new kakao.maps.LatLng(34.670935, 126.616996) },
+        { content: '<div>연호보리축제</div>', latlng: new kakao.maps.LatLng(34.598704, 126.491336) },
+        { content: '<div>땅끝수국축제</div>', latlng: new kakao.maps.LatLng(34.453211, 126.595501) },
+        { content: '<div>송호해변여름축제</div>', latlng: new kakao.maps.LatLng(34.315713, 126.518950) },
+        { content: '<div>오시아노 樂 페스티벌</div>', latlng: new kakao.maps.LatLng(34.670829, 126.260601) },
+        { content: '<div>북평용줄다리기 축제</div>', latlng: new kakao.maps.LatLng(34.403709, 126.628089) },
+        { content: '<div>땅끝 해넘이·해맞이 축제</div>', latlng: new kakao.maps.LatLng(34.298209, 126.529398) },
+        { content: '<div>광양매화축제</div>', latlng: new kakao.maps.LatLng(34.940631, 127.695967) },
+        { content: '<div>백운산국사봉철쭉축제</div>', latlng: new kakao.maps.LatLng(34.989363, 127.700182) },
+        { content: '<div>광양전어축제</div>', latlng: new kakao.maps.LatLng(34.971647, 127.758791) },
+        { content: '<div>광양숯불구이축제</div>', latlng: new kakao.maps.LatLng(34.973341, 127.581049) },
+        { content: '<div>백양단풍축제</div>', latlng: new kakao.maps.LatLng(35.439726, 126.882860) },
+        { content: '<div>빈센트의 봄</div>', latlng: new kakao.maps.LatLng(35.299956, 126.780147) },
+        { content: '<div>2020 대한민국 국향대전</div>', latlng: new kakao.maps.LatLng(35.056190, 126.519949) },
+        { content: '<div>제23회 전라병영성 축제</div>', latlng: new kakao.maps.LatLng(34.720045, 126.817145) },
+        { content: '<div>제48회 강진청자축제</div>', latlng: new kakao.maps.LatLng(34.508660, 126.800838) },
+        { content: '<div>제5회 강진만 춤추는 갈대축제</div>', latlng: new kakao.maps.LatLng(34.625971, 126.772432) },
+        { content: '<div>2020 순천 푸드앤아트페스티벌(날짜변경가능)</div>', latlng: new kakao.maps.LatLng(34.966678, 127.486072) },
+        { content: '<div>제3회 도사동 행복 항꾸네 축제</div>', latlng: new kakao.maps.LatLng(34.925313, 127.493655) },
+        { content: '<div>제5회 도시농업 어울림 한마당</div>', latlng: new kakao.maps.LatLng(34.936621, 127.548189) },
+        { content: '<div>제22회 순천만 갈대축제</div>', latlng: new kakao.maps.LatLng(34.885536, 127.509673) },
+        { content: '<div>제27회 낙안읍성 민속문화축제</div>', latlng: new kakao.maps.LatLng(34.906326, 127.341766) },
+        { content: '<div>제7회 순천시 전통향토음식 축제</div>', latlng: new kakao.maps.LatLng(34.906326, 127.341766) },
+        { content: '<div>제5회 도시농업 어울림 한마당</div>', latlng: new kakao.maps.LatLng(34.936621, 127.548189) },
+        { content: '<div>제26회 순천시민의 날 행사</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>제9회 웃장 국밥축제</div>', latlng: new kakao.maps.LatLng(34.958645, 127.485035) },
+        { content: '<div>순천만국가정원 겨울 축제</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>청바지&청소년 “끼” 축제</div>', latlng: new kakao.maps.LatLng(34.947153, 127.527648) },
+        { content: '<div>제5회 신대지구 스마트 문화제</div>', latlng: new kakao.maps.LatLng(34.936621, 127.548189) },
+        { content: '<div>제5회 순천철도마을축제 및 제3회 순천철도어린이동요제</div>', latlng: new kakao.maps.LatLng(34.950038, 127.498577) },
+        { content: '<div>제3회 마을공동체 동아리축제</div>', latlng: new kakao.maps.LatLng(34.951138, 127.518324) },
+        { content: '<div>제3회 풍덕동 장미축제</div>', latlng: new kakao.maps.LatLng(34.941859, 127.497297) },
+        { content: '<div>2020 순천시민 소망기원 정월대보름행사</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>문화재야행</div>', latlng: new kakao.maps.LatLng(34.953695, 127.484152) },
+        { content: '<div>2020 동아시아문화도시 개막행사</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>한중일 전통 민속예술한마당</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>한중일 미래예술융합 페스티벌</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>동아시아 청소년 예술제</div>', latlng: new kakao.maps.LatLng(34.966678, 127.486072) },
+        { content: '<div>동아시아 그림책 및 웹툰 페스티벌</div>', latlng: new kakao.maps.LatLng(34.953695, 127.484152) },
+        { content: '<div>한중일 평화포럼 + 한중일 팝뮤직 페스티벌</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>2020 동아시아문화도시 폐막행사</div>', latlng: new kakao.maps.LatLng(34.970557, 127.485236) },
+        { content: '<div>2020 대한민국 정원산업박람회</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>제7회 한평정원 페스티벌</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>한중일 전통 민속예술한마당</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>한중일 미래예술융합 페스티벌</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>동아시아 청소년 예술제</div>', latlng: new kakao.maps.LatLng(34.966678, 127.486072) },
+        { content: '<div>동아시아 그림책 및 웹툰 페스티벌</div>', latlng: new kakao.maps.LatLng(34.953695, 127.484152) },
+        { content: '<div>한중일 평화포럼 + 한중일 팝뮤직 페스티벌</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>2020 동아시아문화도시 폐막행사</div>', latlng: new kakao.maps.LatLng(34.970557, 127.485236) },
+        { content: '<div>2020 대한민국정원산업박람회</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>순천만국가정원화훼장식 경진대회</div>', latlng: new kakao.maps.LatLng(34.928886, 127.499959) },
+        { content: '<div>보성전어축제</div>', latlng: new kakao.maps.LatLng(34.670030, 127.089023) },
+        { content: '<div>벌교꼬막축제</div>', latlng: new kakao.maps.LatLng(34.844765, 127.346462) },
+        { content: '<div>벌교꼬막축제</div>', latlng: new kakao.maps.LatLng(34.844765, 127.346462) },
+        { content: '<div>보성전어축제</div>', latlng: new kakao.maps.LatLng(34.670030, 127.089023) },
+        { content: '<div>장보고수산물축제</div>', latlng: new kakao.maps.LatLng(34.317447, 126.752759) },
+        { content: '<div>청산도슬로우걷기축제</div>', latlng: new kakao.maps.LatLng(34.179711, 126.857789) },
+        { content: '<div>제5회 나주마한문화축제</div>', latlng: new kakao.maps.LatLng(34.914855, 126.658903) },
+        { content: '<div>제15회 영산포 홍어축제</div>', latlng: new kakao.maps.LatLng(34.999662, 126.714030) },
+        { content: '<div>제1회 천년나주목읍성문화축제</div>', latlng: new kakao.maps.LatLng(35.032869, 126.716682) },
+        { content: '<div>고흥 우주항공 축제</div>', latlng: new kakao.maps.LatLng(34.453579, 127.518151) },
+        { content: '<div>영암왕인문화축제</div>', latlng: new kakao.maps.LatLng(34.755566, 126.629933) },
+        { content: '<div>기찬월출산국화축제</div>', latlng: new kakao.maps.LatLng(34.791964, 126.685026) },
+        { content: '<div>영암호해맞이축제</div>', latlng: new kakao.maps.LatLng(34.733399, 126.387386) },
+        { content: '<div>곡성세계장미축제</div>', latlng: new kakao.maps.LatLng(35.278095, 127.307465) },
+        { content: '<div>곡성심청축제</div>', latlng: new kakao.maps.LatLng(35.276823, 127.307299) },
+        { content: '<div>여수영취산진달래체험행사</div>', latlng: new kakao.maps.LatLng(34.821075, 127.700334) },
+        { content: '<div>여수거북선축제</div>', latlng: new kakao.maps.LatLng(34.739224, 127.736581) },
+        { content: '<div>여수여자만갯벌노을체험행사</div>', latlng: new kakao.maps.LatLng(34.790243, 127.568009) },
+        { content: '<div>거문도백도은빛바다체험행사</div>', latlng: new kakao.maps.LatLng(34.025638, 127.311945) },
+        { content: '<div>여수밤바다 불꽃축제</div>', latlng: new kakao.maps.LatLng(34.738802, 127.736243) },
+        { content: '<div>여수향일암일출기원한마당</div>', latlng: new kakao.maps.LatLng(34.593794, 127.802986) },
+        { content: '<div>여수동동북축제</div>', latlng: new kakao.maps.LatLng(34.756371, 127.658676) },
+        { content: '<div>청년거리문화축제</div>', latlng: new kakao.maps.LatLng(34.758575, 127.663614) },
+        { content: '<div>여수마칭페스티벌</div>', latlng: new kakao.maps.LatLng(34.739224, 127.736581) },
+        { content: '<div>제17회 추억의 충장축제</div>', latlng: new kakao.maps.LatLng(35.146141, 126.923095) },
+        { content: '<div>서구민한가족대축제</div>', latlng: new kakao.maps.LatLng(35.153395, 126.841098) },
+        { content: '<div>전국 애송시 낭송대회</div>', latlng: new kakao.maps.LatLng(35.131966, 126.859851) },
+        { content: '<div>만드리 풍년제</div>', latlng: new kakao.maps.LatLng(35.107175, 126.823139) },
+        { content: '<div>영산강 서창들녁 억새축제</div>', latlng: new kakao.maps.LatLng(35.138495, 126.828739) },
+        { content: '<div>서구여성합창단 정기 연주회</div>', latlng: new kakao.maps.LatLng(35.152029, 126.890113) },
+        { content: '<div>용전들노래 가을걷이 한마당</div>', latlng: new kakao.maps.LatLng(35.238937, 126.897308) },
+        { content: '<div>제21회 용전들노래 정기공연</div>', latlng: new kakao.maps.LatLng(35.238937, 126.897308) },
+        { content: '<div>제37회고싸움놀이축제</div>', latlng: new kakao.maps.LatLng(35.069744, 126.837519) },
+        { content: '<div>2019고싸움놀이축제</div>', latlng: new kakao.maps.LatLng(35.146915, 126.919995) },
+        { content: '<div>굿모닝 양림</div>', latlng: new kakao.maps.LatLng(35.141623, 126.911494) },
+        { content: '<div>고싸움놀이축제(1차)</div>', latlng: new kakao.maps.LatLng(35.069218, 126.835960) },
+        { content: '<div>고싸움놀이축제(2차)</div>', latlng: new kakao.maps.LatLng(35.069218, 126.835960) },
+        { content: '<div>서창만드리풍년제</div>', latlng: new kakao.maps.LatLng(35.115286, 126.830168) },
+        { content: '<div>광주프린지페스티벌</div>', latlng: new kakao.maps.LatLng(35.148136, 126.908602) },
+        { content: '<div>광주세계김치축제</div>', latlng: new kakao.maps.LatLng(35.109095, 126.866605) },
+        { content: '<div>광주세계김치축제</div>', latlng: new kakao.maps.LatLng(35.109095, 126.866605) },
+        { content: '<div>광주세계김치축제</div>', latlng: new kakao.maps.LatLng(35.109095, 126.866605) },
+        { content: '<div>억새생태문화제</div>', latlng: new kakao.maps.LatLng(35.141293, 126.828428) },
+        { content: '<div>세계청년축제</div>', latlng: new kakao.maps.LatLng(35.148353, 126.918715) },
+        { content: '<div>굿모닝 양림</div>', latlng: new kakao.maps.LatLng(35.141882, 126.911858) },
+        { content: '<div>추억의충장축제</div>', latlng: new kakao.maps.LatLng(35.145827, 126.923327) },
+    ];
+
+    for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng // 마커의 위치
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    }
+
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+    function makeOverListener(map, marker, infowindow) {
+        return function () {
+            infowindow.open(map, marker);
+        };
+    }
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+    function makeOutListener(infowindow) {
+        return function () {
+            infowindow.close();
+        };
+    }
+</script>
+
+{% endblock %}

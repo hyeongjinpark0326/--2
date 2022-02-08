@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link" href="gw">GW</a></li>
+                <li class="nav-item"><a class="nav-link" href="gg">GG</a></li>
+                <li class="nav-item"><a class="nav-link" href="so">SO</a></li>
+                <li class="nav-item"><a class="nav-link" href="ic">IC</a></li>
+                <li class="nav-item"><a class="nav-link" href="dj">DJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="dg">DG</a></li>
+                <li class="nav-item"><a class="nav-link" href="bs">BS</a></li>
+                <li class="nav-item"><a class="nav-link" href="sj">SJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="us">US</a></li>
+                <li class="nav-item"><a class="nav-link" href="cb">CB</a></li>
+                <li class="nav-item"><a class="nav-link" href="cn">CN</a></li>
+                <li class="nav-item"><a class="nav-link" href="gb">GB</a></li>
+                <li class="nav-item"><a class="nav-link" href="gn">GN</a></li>
+                <li class="nav-item"><a class="nav-link" href="jb">JB</a></li>
+                <li class="nav-item"><a class="nav-link" href="jn">JN</a></li>
+                <li class="nav-item"><a class="nav-link" href="jj">JJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="gj">GJ</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" src="{%static 'pybo/경기도.png' %}" />
+            </div>
+            <div class="col-md-6">
+                <h3 class="display-5 fw-bolder">🎈경기도 축제 현황</h3>
+                <div class="small mb-1">경기도에서 축제가 가장 많이 개최되는 시, 군, 구 지역을 알아보기 위해 워드클라우드로 표현</div>
+                <div class="small mb-1">✔축제가 가장 많이 개최되는 시, 군, 구 지역은 의정부시이다.</div>
+                <div id="table" style="text-align: center;">◾ 대표 축제 ◾
+                    <table border="1" class="dataframe">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th>축제명</th>
+                                <th>시도명</th>
+                                <th>시군구명</th>
+                                <th>법정동 이름</th>
+                                <th>도로명주소</th>
+                                <th>축제일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td>광주왕실도자기축제</td>
+                                <td>경기도</td>
+                                <td>광주시</td>
+                                <td>곤지암읍</td>
+                                <td>경기도 광주시 곤지암읍 경충대로 727</td>
+                                <td>20200430</td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td>퇴촌토마토축제</td>
+                                <td>경기도</td>
+                                <td>광주시</td>
+                                <td>퇴촌면</td>
+                                <td>경기도 광주시 퇴촌면 오리길 104-11</td>
+                                <td>20200619</td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td>제28회 연천 구석기 축제</td>
+                                <td>경기도</td>
+                                <td>연천군</td>
+                                <td>전곡읍</td>
+                                <td>경기도 연천군 전곡읍 양연로 1510</td>
+                                <td>20201009</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</section>
+{% endblock %}

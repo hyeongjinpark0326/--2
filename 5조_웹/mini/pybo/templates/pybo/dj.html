@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div id="map" style="width:100%;height:700px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=45e18398b5d634d330bcfb757b4f0d24"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        mapOption = {
+            center: new kakao.maps.LatLng(36.355057, 127.383360), // 지도의 중심좌표
+            level: 8 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = [
+        { content: '<div>2020 대전 서구힐링 아트페스티벌</div>', latlng: new kakao.maps.LatLng(36.355057, 127.383360) },
+        { content: '<div>효문화뿌리축제</div>', latlng: new kakao.maps.LatLng(36.285987, 127.383698) },
+        { content: '<div>대청호대덕뮤직패스티벌</div>', latlng: new kakao.maps.LatLng(36.473625, 127.473568) },
+        { content: '<div>동춘당문화제</div>', latlng: new kakao.maps.LatLng(36.365379, 127.441293) },
+        { content: '<div>제13회 신성한마음축제</div>', latlng: new kakao.maps.LatLng(36.384227, 127.357276) },
+        { content: '<div>제17회 한여름밤의 축제</div>', latlng: new kakao.maps.LatLng(36.398568, 127.405333) },
+        { content: '<div>제3회 노은3동한마음축제</div>', latlng: new kakao.maps.LatLng(36.384112, 127.305374) },
+        { content: '<div>2019 노은한마음축제</div>', latlng: new kakao.maps.LatLng(36.386202, 127.319542) },
+        { content: '<div>제9회 관평골축제</div>', latlng: new kakao.maps.LatLng(36.424393, 127.394097) },
+        { content: '<div>제14회 구즉한마당축제</div>', latlng: new kakao.maps.LatLng(36.435010, 127.384101) },
+        { content: '<div>제21회 진잠주민화합한마당</div>', latlng: new kakao.maps.LatLng(36.299527, 127.315087) },
+    ];
+
+    for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng // 마커의 위치
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    }
+
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+    function makeOverListener(map, marker, infowindow) {
+        return function () {
+            infowindow.open(map, marker);
+        };
+    }
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+    function makeOutListener(infowindow) {
+        return function () {
+            infowindow.close();
+        };
+    }
+</script>
+
+{% endblock %}

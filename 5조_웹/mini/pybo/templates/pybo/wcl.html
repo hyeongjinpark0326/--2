@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link" href="gw">GW</a></li>
+                <li class="nav-item"><a class="nav-link" href="gg">GG</a></li>
+                <li class="nav-item"><a class="nav-link" href="so">SO</a></li>
+                <li class="nav-item"><a class="nav-link" href="ic">IC</a></li>
+                <li class="nav-item"><a class="nav-link" href="dj">DJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="dg">DG</a></li>
+                <li class="nav-item"><a class="nav-link" href="bs">BS</a></li>
+                <li class="nav-item"><a class="nav-link" href="sj">SJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="us">US</a></li>
+                <li class="nav-item"><a class="nav-link" href="cb">CB</a></li>
+                <li class="nav-item"><a class="nav-link" href="cn">CN</a></li>
+                <li class="nav-item"><a class="nav-link" href="gb">GB</a></li>
+                <li class="nav-item"><a class="nav-link" href="gn">GN</a></li>
+                <li class="nav-item"><a class="nav-link" href="jb">JB</a></li>
+                <li class="nav-item"><a class="nav-link" href="jn">JN</a></li>
+                <li class="nav-item"><a class="nav-link" href="jj">JJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="gj">GJ</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" src="{%static 'pybo/전국.png' %}" />
+            </div>
+            <div class="col-md-6">
+                <h3 class="display-5 fw-bolder">🎈전국 축제 현황</h3>
+                <div class="small mb-1">전국의 시, 도 중에서 축제가 가장 많이 개최되는 지역을 알아보기 위해 워드클라우드와 그래프로 표현</div>
+                <div class="small mb-1">✔축제가 가장 많이 개최되는 시, 도 지역은 경기도와 전라남도이다.</div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</section>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div id="map" style="width:100%;height:700px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=45e18398b5d634d330bcfb757b4f0d24"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        mapOption = {
+            center: new kakao.maps.LatLng(35.504399, 129.387293), // 지도의 중심좌표
+            level: 7 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = [
+        { content: '<div>울주세계산악영화제</div>', latlng: new kakao.maps.LatLng(35.556348, 129.067604) },
+        { content: '<div>우시산국축제</div>', latlng: new kakao.maps.LatLng(35.463038, 129.213965) },
+        { content: '<div>울산옹기축제</div>', latlng: new kakao.maps.LatLng(35.435069, 129.279509) },
+        { content: '<div>이원복의 먼나라 이웃나라 영국여행</div>', latlng: new kakao.maps.LatLng(34.487175, 128.411324) },
+        { content: '<div><그림읽어주는베토벤> 더 콘서트 I ‘고흐 & 고갱’</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>박강수콘서트</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>찬란한 황금빛 사운드 금관악기의 향연</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>모두 다 함께 신명나게 놀자</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>건반위 포핸즈의 아름다운 선율</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>감동과 즐거움을 선사하는 성악 앙상블</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>청소년 힐링 페스티벌</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>매직스크린아트 가족극〈오버코트〉</div>', latlng: new kakao.maps.LatLng(35.487175, 129.411324) },
+        { content: '<div>울산고래축제</div>', latlng: new kakao.maps.LatLng(35.504399, 129.387293) },
+        { content: '<div>간절곶해맞이</div>', latlng: new kakao.maps.LatLng(35.359037, 129.360675) },
+    ];
+
+    for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng // 마커의 위치
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    }
+
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+    function makeOverListener(map, marker, infowindow) {
+        return function () {
+            infowindow.open(map, marker);
+        };
+    }
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+    function makeOutListener(infowindow) {
+        return function () {
+            infowindow.close();
+        };
+    }
+</script>
+
+{% endblock %}

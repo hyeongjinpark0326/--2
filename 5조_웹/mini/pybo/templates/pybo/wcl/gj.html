@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link" href="gw">GW</a></li>
+                <li class="nav-item"><a class="nav-link" href="gg">GG</a></li>
+                <li class="nav-item"><a class="nav-link" href="so">SO</a></li>
+                <li class="nav-item"><a class="nav-link" href="ic">IC</a></li>
+                <li class="nav-item"><a class="nav-link" href="dj">DJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="dg">DG</a></li>
+                <li class="nav-item"><a class="nav-link" href="bs">BS</a></li>
+                <li class="nav-item"><a class="nav-link" href="sj">SJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="us">US</a></li>
+                <li class="nav-item"><a class="nav-link" href="cb">CB</a></li>
+                <li class="nav-item"><a class="nav-link" href="cn">CN</a></li>
+                <li class="nav-item"><a class="nav-link" href="gb">GB</a></li>
+                <li class="nav-item"><a class="nav-link" href="gn">GN</a></li>
+                <li class="nav-item"><a class="nav-link" href="jb">JB</a></li>
+                <li class="nav-item"><a class="nav-link" href="jn">JN</a></li>
+                <li class="nav-item"><a class="nav-link" href="jj">JJ</a></li>
+                <li class="nav-item"><a class="nav-link" href="gj">GJ</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" src="{%static 'pybo/광주.png' %}" />
+            </div>
+            <div class="col-md-6">
+                <h3 class="display-5 fw-bolder">🎈광주광역시 축제 현황</h3>
+                <div class="small mb-1">광주광역시에서 축제가 가장 많이 개최되는 시, 군, 구 지역을 알아보기 위해 워드클라우드로 표현</div>
+                <div class="small mb-1">✔축제가 가장 많이 개최되는 시, 군, 구 지역은 남구이다.</div>
+                <div id="table" style="text-align: center;">◾ 대표 축제 ◾
+                    <table border="1" class="dataframe">
+                        <thead>
+                          <tr style="text-align: center;">
+                            <th>축제명</th>
+                            <th>시도명</th>
+                            <th>시군구명</th>
+                            <th>법정동 이름</th>
+                            <th>도로명주소</th>
+                            <th>축제일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="text-align: center;">
+                            <td>제17회 추억의 충장축제</td>
+                            <td>광주광역시</td>
+                            <td>동구</td>
+                            <td>서석동</td>
+                            <td>광주광역시 동구 서남로 1 (서석동)</td>
+                            <td>20201014</td>
+                          </tr>
+                          <tr style="text-align: center;">
+                            <td>서구민한가족대축제</td>
+                            <td>광주광역시</td>
+                            <td>서구</td>
+                            <td>치평동</td>
+                            <td>광주광역시 서구 상무공원로 101 (치평동)</td>
+                            <td>20200501</td>
+                          </tr>
+                          <tr style="text-align: center;">
+                            <td>전국 애송시 낭송대회</td>
+                            <td>광주광역시</td>
+                            <td>서구</td>
+                            <td>금호동</td>
+                            <td>광주광역시 서구 풍금로 182 (금호동)</td>
+                            <td>20200501</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</section>
+{% endblock %}

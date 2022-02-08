@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div id="map" style="width:100%;height:700px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=45e18398b5d634d330bcfb757b4f0d24"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        mapOption = {
+            center: new kakao.maps.LatLng(36.813442, 127.788538), // 지도의 중심좌표
+            level: 10 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = [
+        { content: '<div>영동국악과일와인축제</div>', latlng: new kakao.maps.LatLng(36.164015, 127.781947) },
+        { content: '<div>충주농산물한마당축제</div>', latlng: new kakao.maps.LatLng(36.987829, 127.905569) },
+        { content: '<div>제16회 제천국제음악영화제</div>', latlng: new kakao.maps.LatLng(37.010834, 128.181189) },
+        { content: '<div>제25회 오장환문학제</div>', latlng: new kakao.maps.LatLng(36.493358, 127.596447) },
+        { content: '<div>제45회 중봉충렬제</div>', latlng: new kakao.maps.LatLng(36.380711, 127.689342) },
+        { content: '<div>괴산고추축제</div>', latlng: new kakao.maps.LatLng(36.813442, 127.788538) },
+        { content: '<div>괴산김장축제</div>', latlng: new kakao.maps.LatLng(36.813442, 127.788538) },
+        { content: '<div>괴산유기농페스티벌</div>', latlng: new kakao.maps.LatLng(36.813442, 127.788538) },
+        { content: '<div>제24회 단양 온달문화축제</div>', latlng: new kakao.maps.LatLng(37.062956, 128.492922) },
+        { content: '<div>2020 청원생명축제</div>', latlng: new kakao.maps.LatLng(36.733159, 127.407403) },
+        { content: '<div>지용제</div>', latlng: new kakao.maps.LatLng(36.315016, 127.581572) },
+        { content: '<div>청남대 재즈토닉 페스티벌</div>', latlng: new kakao.maps.LatLng(36.462247, 127.490095) },
+        { content: '<div>청주읍성큰잔치</div>', latlng: new kakao.maps.LatLng(36.632857, 127.488789) },
+        { content: '<div>2020 직지코리아 페스티벌</div>', latlng: new kakao.maps.LatLng(36.643974, 127.471460) },
+        { content: '<div>생거진천 문화축제</div>', latlng: new kakao.maps.LatLng(36.861522, 127.442039) },
+        { content: '<div>제천국제음악영화제</div>', latlng: new kakao.maps.LatLng(37.148685, 128.216854) },
+        { content: '<div>겨울왕국 제천페스티벌</div>', latlng: new kakao.maps.LatLng(37.148685, 128.216854) },
+        { content: '<div>보은대추축제</div>', latlng: new kakao.maps.LatLng(36.486296, 127.723402) },
+        { content: '<div>감자옥수수 축제</div>', latlng: new kakao.maps.LatLng(36.392600, 127.659772) },
+        { content: '<div>지용제</div>', latlng: new kakao.maps.LatLng(36.315016, 127.581572) },
+        { content: '<div>음성품바축제</div>', latlng: new kakao.maps.LatLng(36.931523, 127.680630) },
+        { content: '<div>설성문화제</div>', latlng: new kakao.maps.LatLng(36.934276, 127.690695) },
+        { content: '<div>음성명작페스티벌</div>', latlng: new kakao.maps.LatLng(36.993728, 127.604295) },
+        { content: '<div>제24회 단양온달문화축제</div>', latlng: new kakao.maps.LatLng(37.062956, 128.492922) },
+        { content: '<div>제38회 단양소백산철쭉제</div>', latlng: new kakao.maps.LatLng(36.964782, 128.420781) },
+        { content: '<div>괴산고추축제</div>', latlng: new kakao.maps.LatLng(36.815748, 127.787535) },
+        { content: '<div>백마권역겨울놀이축제</div>', latlng: new kakao.maps.LatLng(36.838809, 127.651042) },
+        { content: '<div>감물감자축제</div>', latlng: new kakao.maps.LatLng(36.839495, 127.871046) },
+        { content: '<div>우륵문화제</div>', latlng: new kakao.maps.LatLng(36.981692, 127.936580) },
+        { content: '<div>들노래축제</div>', latlng: new kakao.maps.LatLng(36.763887, 127.595570) },
+        { content: '<div>인삼골축제</div>', latlng: new kakao.maps.LatLng(36.787005, 127.576047) },
+    ];
+
+    for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng // 마커의 위치
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    }
+
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+    function makeOverListener(map, marker, infowindow) {
+        return function () {
+            infowindow.open(map, marker);
+        };
+    }
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+    function makeOutListener(infowindow) {
+        return function () {
+            infowindow.close();
+        };
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div id="map" style="width:100%;height:700px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=45e18398b5d634d330bcfb757b4f0d24"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        mapOption = {
+            center: new kakao.maps.LatLng(35.869181, 128.595424), // 지도의 중심좌표
+            level: 7 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = [
+        { content: '<div>희망달서 큰잔치</div>', latlng: new kakao.maps.LatLng(35.842859, 128.522124) },
+        { content: '<div>와룡민속한마당</div>', latlng: new kakao.maps.LatLng(35.855754, 128.500776) },
+        { content: '<div>두류문화한마당</div>', latlng: new kakao.maps.LatLng(35.851152, 128.556199) },
+        { content: '<div>코로나19에 따른 축제 일체 잠정 중단</div>', latlng: new kakao.maps.LatLng(35.864720, 128.714295) },
+        { content: '<div>장미꽃 필(feel)무렵</div>', latlng: new kakao.maps.LatLng(35.857414, 128.514463) },
+        { content: '<div>달서가족축제</div>', latlng: new kakao.maps.LatLng(35.832821, 128.487236) },
+        { content: '<div>제27회 대덕제 대구앞산축제</div>', latlng: new kakao.maps.LatLng(35.831799, 128.564597) },
+        { content: '<div>상화문학제</div>', latlng: new kakao.maps.LatLng(35.829377, 128.620578) },
+        { content: '<div>뮤직·수제맥주 페스티벌</div>', latlng: new kakao.maps.LatLng(35.829377, 128.620578) },
+        { content: '<div>수성못 뮤지컬 프린지 페스티벌</div>', latlng: new kakao.maps.LatLng(35.829377, 128.620578) },
+        { content: '<div>고모령 가요제</div>', latlng: new kakao.maps.LatLng(35.831659, 128.687326) },
+        { content: '<div>수성못 페스티벌</div>', latlng: new kakao.maps.LatLng(35.829377, 128.620578) },
+        { content: '<div>수성 건강 축제</div>', latlng: new kakao.maps.LatLng(35.831659, 128.687326) },
+        { content: '<div>수성빛예술제</div>', latlng: new kakao.maps.LatLng(35.829377, 128.620578) },
+        { content: '<div>정월대보름 달맞이 행사</div>', latlng: new kakao.maps.LatLng(37.896387, 127.053202) },
+        { content: '<div>금호강 바람소리길 축제</div>', latlng: new kakao.maps.LatLng(35.906639, 128.600536) },
+        { content: '<div>대구국제패션문화페스티벌</div>', latlng: new kakao.maps.LatLng(35.883688, 128.595976) },
+        { content: '<div>대구국제오페라축제</div>', latlng: new kakao.maps.LatLng(35.883464, 128.592233) },
+        { content: '<div>대구국제재즈축제</div>', latlng: new kakao.maps.LatLng(35.857924, 128.590700) },
+        { content: '<div>2019컬러풀대구페스티벌</div>', latlng: new kakao.maps.LatLng(35.871554, 128.601220) },
+        { content: '<div>국제보디페인팅축제</div>', latlng: new kakao.maps.LatLng(35.850863, 128.557667) },
+        { content: '<div>대구국제호러페스티벌</div>', latlng: new kakao.maps.LatLng(35.829770, 128.690163) },
+        { content: '<div>대구치맥페스티벌</div>', latlng: new kakao.maps.LatLng(35.850746, 128.561653) },
+        { content: '<div>대구포크페스티벌</div>', latlng: new kakao.maps.LatLng(35.871421, 128.624835) },
+        { content: '<div>대구약령시한방문화축제</div>', latlng: new kakao.maps.LatLng(35.868518, 128.589911) },
+        { content: '<div>형형색색달구벌관등놀이</div>', latlng: new kakao.maps.LatLng(35.856196, 128.589753) },
+        { content: '<div>동아시아보자기페스티벌</div>', latlng: new kakao.maps.LatLng(35.883688, 128.595976) },
+        { content: '<div>대구국제뮤지컬페스티벌</div>', latlng: new kakao.maps.LatLng(35.883688, 128.595976) },
+        { content: '<div>금호강 정월대보름 축제</div>', latlng: new kakao.maps.LatLng(35.906639, 128.600536) },
+        { content: '<div>해맞이 행사</div>', latlng: new kakao.maps.LatLng(35.932288, 128.567520) },
+        { content: '<div>대구 글로벌게임문화축제 e-Fun</div>', latlng: new kakao.maps.LatLng(35.835417, 128.681784) },
+        { content: '<div>팔공산 산중전통장터 승시</div>', latlng: new kakao.maps.LatLng(35.984501, 128.698771) },
+        { content: '<div>김광석추모콘서트</div>', latlng: new kakao.maps.LatLng(35.859472, 128.604402) },
+        { content: '<div>봉산도자기축제</div>', latlng: new kakao.maps.LatLng(35.863797, 128.596776) },
+        { content: '<div>2019 대구약령시한방문화축제</div>', latlng: new kakao.maps.LatLng(35.867286, 128.593349) },
+        { content: '<div>동성로축제</div>', latlng: new kakao.maps.LatLng(35.869181, 128.595424) },
+        { content: '<div>대구스트리트 모터 페스티벌</div>', latlng: new kakao.maps.LatLng(35.857473, 128.588345) },
+        { content: '<div>대구 문화제 야행</div>', latlng: new kakao.maps.LatLng(35.868839, 128.589995) },
+        { content: '<div>김광석노래부르기</div>', latlng: new kakao.maps.LatLng(35.856117, 128.616238) },
+        { content: '<div>대구화교중화문화축제</div>', latlng: new kakao.maps.LatLng(35.869044, 128.592060) },
+        { content: '<div>봉산미술제</div>', latlng: new kakao.maps.LatLng(35.863797, 128.596776) },
+        { content: '<div>달성토성마을축제</div>', latlng: new kakao.maps.LatLng(35.875831, 128.574740) },
+        { content: '<div>가족사랑 아이스축제</div>', latlng: new kakao.maps.LatLng(35.873636, 128.545477) },
+    ];
+
+    for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng // 마커의 위치
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    }
+
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+    function makeOverListener(map, marker, infowindow) {
+        return function () {
+            infowindow.open(map, marker);
+        };
+    }
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+    function makeOutListener(infowindow) {
+        return function () {
+            infowindow.close();
+        };
+    }
+</script>
+
+{% endblock %}
